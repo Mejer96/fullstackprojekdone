@@ -15,7 +15,9 @@ public class Repository {
         try {
             // URL kommer til at skulle udskiftes, når vi engang får hostet databasen på azure.
             // virker ikke uden jar fil med jdbc driver.
-            connection = DriverManager.getConnection("jdbc:mysql://fullstackproject-wishlist-db.mysql.database.azure.com:3306/wishlist_schema", "wishlistadmin@fullstackproject-wishlist-db", "fullstackpassword123#");
+            String url1 = "jdbc:mysql://fullstackproject-wishlist-db.mysql.database.azure.com:3306/wishlist_schema";
+            String url ="jdbc:mysql://fullstackproject-wishlist-db.mysql.database.azure.com:3306/wishlist_schema?useSSL=true&requireSSL=false";
+            connection = DriverManager.getConnection(url, "wishlistadmin@fullstackproject-wishlist-db", "fullstackpassword123#");
         } catch (Exception e) {
             e.printStackTrace();
         }
