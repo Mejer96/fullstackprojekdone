@@ -2,14 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/stylesheet.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/accc8a4097.js" crossorigin="anonymous"></script>
+    <title>Opret bruger</title>
 </head>
 <body>
+
+<header>
+    <nav>
+        <ul>
+            <li class="navbar-right" style="float: left"><a th:href="@{/show-wishlists}">Ønskelisten</a></li>
+            <li class="navbar-right">
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
 <form th:action="@{/join}" method="POST">
     <label for="username">Username</label>
     <input type="text" name="username">
     <label for="password">Password</label>
     <input type="text" name="password">
+    <button type="submit">Opret bruger</button>
 </form>
 </body>
 </html>

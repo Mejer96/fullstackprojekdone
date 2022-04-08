@@ -1,6 +1,8 @@
 package com.example.projekt2.controllers;
 
-public class Wishlist {
+import java.io.Serializable;
+
+public class Wishlist implements Serializable {
     private String wishlistName;
     private String wishlistDescription;
     private String wishlistID;
@@ -11,7 +13,7 @@ public class Wishlist {
         this.wishlistID = wishlistID;
     }
 
-    public String getName() {
+    public String getWishlistName() {
         return wishlistName;
     }
 
@@ -27,7 +29,7 @@ public class Wishlist {
         this.wishlistDescription = wishlistDescription;
     }
 
-    public String getwishlistID() {
+    public String getWishlistID() {
         return wishlistID;
     }
 

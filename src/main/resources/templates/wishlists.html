@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ønskelister</title>
+    <link th:href="@{/stylesheet.css}" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li class="navbar-right" style="float: left"><a th:href="@{/show-wishlists}">Ønskelisten</a></li>
+            <li class="navbar-right">
+                <span th:if="${user == null}"> <a th:href="sign-in">Log ind</a> </span>
+                <span th:unless="${user == null}" > <a th:href="@{/log-out}">Log ud</a> </span>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<h1>Dine ønskelister</h1>
+
+<a th:href="create-wishlist">Opret ny ønskeliste</a>
+<hr>
+
+<tr  th:each="wishlist : ${wishlists}">
+    <td th:text="${wishlist.getWishlistName()}"></td>
+    <td th:text="${wishlist.getWishlistDescription()}"></td>
+    <td><a th:href="@{/show-wishlist-items/{wishlistID} (wishlistID=${wishlist.getWishlistID()})}">Vis ønskeliste</a></td>
+    <td><a th:href="@{/delete-wishlist/{wishlistID} (wishlistID=${wishlist.getWishlistID()})}">Slet ønskeliste</a></td>
+    <hr>
+</tr>
+
+<div>
+
+
+</div>
+
+
+
+</body>
+</html>

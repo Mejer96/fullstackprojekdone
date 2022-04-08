@@ -18,12 +18,20 @@ public class WishlistService {
         return repository.getWishlists(userID);
     }
 
+    public void deleteWishlist(String wishlistID) throws SQLException {
+        repository.deleteWishlist(wishlistID);
+    }
+
     public void createWish(String itemName, String itemPrice, String itemDescription, String wishlistID) throws SQLException {
         repository.createWish(itemName, itemPrice, itemDescription, wishlistID);
     }
 
     public ArrayList<Wish> getWishlistItems(String wishlistID) throws SQLException {
         return repository.getWishlistItems(wishlistID);
+    }
+
+    public void deleteWish(String wishID) throws SQLException {
+        repository.deleteWish(wishID);
     }
 
     public Repository getRepository() {

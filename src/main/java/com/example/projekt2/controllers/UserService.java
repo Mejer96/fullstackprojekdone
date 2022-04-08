@@ -1,5 +1,6 @@
 package com.example.projekt2.controllers;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class UserService {
@@ -10,23 +11,25 @@ public class UserService {
     }
 
     public User userLogin(String username, String password) throws SQLException {
-        User user = null;
+        User user = repository.getUser(username, password);
 
-        if (repository.checkPassword(password).next() & repository.checkUsername(username).next()) {
-            user = repository.getUser(username, password);
-        }
         return user;
     }
 
 
-    public boolean createUser(String username, String password) throws SQLException {
-        boolean isValid = true;
+    public void createUser(String username, String password) throws SQLException {
+        repository.createUser(username, password);
 
-        if (!repository.checkUsername(username).next()) {
-            repository.createUser(username, password);
-        } else {
-            isValid = false;
+    }
+
+    public boolean checkForUser(HttpSession session) {
+        Boolean userExists = true;
+
+        try {
+            session.getAttribute("user");
+        } catch (NullPointerException e) {
+            userExists = false;
         }
-        return isValid;
+        return userExists;
     }
 }

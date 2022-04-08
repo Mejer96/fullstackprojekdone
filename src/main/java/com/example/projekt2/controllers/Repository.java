@@ -15,7 +15,7 @@ public class Repository {
         try {
             // URL kommer til at skulle udskiftes, når vi engang får hostet databasen på azure.
             // virker ikke uden jar fil med jdbc driver.
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wishlists_database", "root", "fullstackpassword123#");
+            connection = DriverManager.getConnection("jdbc:mysql://fullstackproject-wishlist-db.mysql.database.azure.com:3306/wishlist_schema", "wishlistadmin@fullstackproject-wishlist-db", "fullstackpassword123#");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class Repository {
     public User getUser(String username, String password) throws SQLException {
         User user = null;
         Statement statement = createStatement();
-        String mySQLStatement = "SELECT * FROM users WHERE password='" + password + " AND username ='" + username + "'";
+        String mySQLStatement = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
         ResultSet resultSet = createQuery(mySQLStatement, statement);
 
         while (resultSet.next()) {
@@ -79,7 +79,7 @@ public class Repository {
         ResultSet resultSet = createQuery(mySQLStatement, statement);
 
         while (resultSet.next()) {
-            Wish wish = new Wish(resultSet.getString("wish_name"), resultSet.getString("wish_price"), resultSet.getString("wish_description"));
+            Wish wish = new Wish(resultSet.getString("wish_name"), resultSet.getString("wish_price"), resultSet.getString("wish_description"), resultSet.getString("wish_ID"), resultSet.getString("wishlist_ID"));
             wishlist_items.add(wish);
         }
         return wishlist_items;
@@ -100,7 +100,7 @@ public class Repository {
 
     public void createWish(String itemName, String itemPrice, String itemDescription, String wishlistID) throws SQLException {
         Statement statement = createStatement();
-        String mySQLStatement = "INSERT INTO wish (item_name, item_price, item_description, wishlist_ID) VALUES (" + itemName + "," + itemPrice + "," + itemDescription + "," + wishlistID + ")";
+        String mySQLStatement = "INSERT INTO wish (wish_name, wish_price, wish_description, wishlist_ID) VALUES ('" + itemName + "', '" + itemPrice + "', '" + itemDescription + "', '" + wishlistID + "')";
         statement.executeUpdate(mySQLStatement);
     }
 
@@ -113,13 +113,15 @@ public class Repository {
 
     public void createWishlist(String wishlistName, String wishlistDescription, String userID) throws SQLException {
         Statement statement = createStatement();
-        String mySQLStatement = "INSERT INTO wishlist (wishlist_name, wishlist_description, user_ID) VALUES (" + wishlistName + "," + wishlistDescription + "," + userID + ")";
+        String mySQLStatement = "INSERT INTO wishlist (wishlist_name, wishlist_description, user_ID) VALUES ('" + wishlistName + "', '" + wishlistDescription + "', '" + userID + "')";
         statement.executeUpdate(mySQLStatement);
     }
 
     public void deleteWishlist(String wishlist_ID) throws SQLException {
         Statement statement = createStatement();
         String mySQLStatement = "DELETE FROM wishlist WHERE wishlist_ID='" + wishlist_ID + "'";
+        String mySQLStatement1 = "DELETE FROM wish WHERE wishlist_ID='" + wishlist_ID + "'";
         statement.executeUpdate(mySQLStatement);
+        statement.executeUpdate(mySQLStatement1);
     }
 }
