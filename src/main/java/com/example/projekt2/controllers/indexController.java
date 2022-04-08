@@ -11,7 +11,7 @@ import java.sql.SQLException;
 //test
 @Controller
 public class indexController {
-
+// test
     Repository repository = new Repository();
     UserService userService = new UserService(repository);
     WishlistService wishlistService = new WishlistService(repository);
