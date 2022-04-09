@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Repository {
-    private Connection connection = connectToMySQL();
-
     // wish, wishlist og user ID's bliver automatisk tilføjet af MySQL,
     // så denne er ikke nødvendig som parameter
     // Link: https://www.w3schools.com/mysql/mysql_autoincrement.asp
@@ -35,6 +33,8 @@ public class Repository {
     }
 
     public Statement createStatement() {
+        Connection connection = connectToMySQL();
+
         Statement statement = null;
         try {
             statement = connection.createStatement();
